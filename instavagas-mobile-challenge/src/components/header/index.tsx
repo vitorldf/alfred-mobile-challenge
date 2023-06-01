@@ -4,7 +4,13 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 import { Colors } from "../../styles/colors";
 
-export default function HeaderComponent() {
+interface headerProps {
+  searchTerm: any;
+  handleSearch(value: string): void;
+}
+
+
+export default function HeaderComponent({searchTerm, handleSearch}: headerProps) {
   return (
     <View style={HeaderStyles.headerBox}>
       <Text style={HeaderStyles.headerText}>Pharma Inc.</Text>
@@ -14,6 +20,8 @@ export default function HeaderComponent() {
           keyboardType="default"
           placeholder="Nome do Cliente"
           style={HeaderStyles.headerInput}
+          value={searchTerm}
+          onChangeText={(text) => handleSearch(text)}
         />
         <Icon
           name="search"

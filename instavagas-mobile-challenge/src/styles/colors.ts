@@ -2,6 +2,7 @@ export const Colors = {
   primary: {
     900: "#3D5A80",
     400: "#98C1D9",
+    200: "#d9eefa",
   },
   secondary: {
     900: "#EE6C4D",

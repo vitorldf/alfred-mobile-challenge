@@ -8,13 +8,13 @@ export default function TabBarComponent() {
   return (
     <Box style={TabBarStyles.tabBarBox}>
       <Box style={TabBarStyles.iconsBox}>
-        <HomeIcon name="home" size={20} color={Colors.primary[400]} />
+        <HomeIcon name="home" size={18} color={Colors.primary[400]} />
         <Text color={Colors.primary[400]}>Home</Text>
       </Box>
       <Box style={TabBarStyles.iconsBox}>
         <FavoriteIcon
           name="favorite-outline"
-          size={20}
+          size={18}
           color={Colors.primary[400]}
         />
         <Text color={Colors.primary[400]}>Favorites</Text>

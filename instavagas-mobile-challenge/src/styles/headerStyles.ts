@@ -4,8 +4,9 @@ import { Colors } from "./colors";
 export const HeaderStyles = StyleSheet.create({
   headerBox: {
     flex: 0.2,
-    width: " 100%",
-    paddingTop: 50,
+    width: 380,
+    paddingTop: 20,
+    paddingBottom: 12,
     gap: 15,
     justifyContent: "center",
     alignItems: "center",
@@ -17,7 +18,7 @@ export const HeaderStyles = StyleSheet.create({
     color: Colors.secondary[900],
   },
   headerInput: {
-    width: 250,
+    width: 280,
     borderColor: Colors.background,
     borderRadius: 8,
     paddingHorizontal: 4,
@@ -29,10 +30,9 @@ export const HeaderStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 12,
-
   },
   searchIcon: {
-    paddingLeft: 4,
-    marginRight: 2,
+    paddingLeft: 1,
+    marginRight: 1,
   },
 });

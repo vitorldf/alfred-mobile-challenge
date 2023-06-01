@@ -4,8 +4,11 @@ import { Colors } from "./colors";
 export const TabBarStyles = StyleSheet.create({
   tabBarBox: {
     flex: 0.1,
+    position: "absolute",
+    bottom: 0,
     flexDirection: "row",
     width: " 100%",
+    height: 45,
     paddingBottom: 1,
     gap: 15,
     justifyContent: "space-around",
