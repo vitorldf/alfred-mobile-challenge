@@ -1,28 +1,16 @@
-import {
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  ActivityIndicator,
-  SafeAreaView,
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import { Text, View, SafeAreaView, FlatList } from "react-native";
 import { GlobalStyles } from "../../styles/globalStyles";
 import { api } from "../../services";
-import { Button, Box, VStack, Spinner } from "native-base";
-import { useCallback, useEffect, useState } from "react";
+import { Box, VStack, Progress } from "native-base";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ClientCardComponent from "../../components/clientCard/indext";
 import { ClientCardStyles } from "../../styles/clientCardStyles";
 import { HomeStyles } from "../../styles/homeStyles";
 import HeaderComponent from "../../components/header";
 import {
-  BottomSheetModal,
   BottomSheetModalProvider,
-} from '@gorhom/bottom-sheet';
+  BottomSheetModal,
+} from "@gorhom/bottom-sheet";
 
 export interface clientProps {
   dob: {
@@ -40,7 +28,7 @@ export interface clientProps {
     country: string;
     postalCode: number;
     state: string;
-    street?: {
+    street: {
       name: string;
       number: number;
     };
@@ -65,7 +53,7 @@ export default function HomePage() {
   const handleData = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get("/?results=1000");
+      const response = await api.get("/?results=50");
       setUserList(response.data.results);
     } catch (error) {
       console.log(error);
@@ -87,15 +75,26 @@ export default function HomePage() {
         );
         setUserList(filteredClientsList);
       } else {
-        handleData(); // Retorna a lista completa quando o campo de pesquisa estiver vazio
+        handleData();
       }
     },
     [userList]
   );
 
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const snapPoints = useMemo(() => ["25%", "50%"], []);
+
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
+
   return (
     <>
-      <View>
+      <View style={GlobalStyles.container}>
         <HeaderComponent
           searchTerm={searchTerm}
           handleSearch={(e) => handleSearch(e)}
@@ -104,8 +103,16 @@ export default function HomePage() {
         <SafeAreaView style={GlobalStyles.container}>
           {isLoading ? (
             <View style={HomeStyles.loaderContainer}>
-              <Spinner size="large" color="blue" />
-              <Text>Carregando dados dos Clientes.</Text>
+              <Text style={HomeStyles.loaderText}>
+                Carregando dados dos Clientes.
+              </Text>
+              <Progress
+                w="300"
+                colorScheme="warning"
+                shadow={2}
+                value={80}
+                mx="4"
+              />
             </View>
           ) : userList?.length ? (
             <FlatList
@@ -123,6 +130,7 @@ export default function HomePage() {
                       gender={item.gender}
                       email={item.email}
                       phone={item.phone}
+                      location={item.location}
                     />
                   </Box>
                 </VStack>

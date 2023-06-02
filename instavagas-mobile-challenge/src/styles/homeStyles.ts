@@ -8,7 +8,11 @@ export const HomeStyles = StyleSheet.create({
   },
   loaderContainer: {
     flex: 1,
+    gap: 10,
     justifyContent: "center",
     alignItems: "center",
+  },
+  loaderText: {
+    fontSize: 18,
   },
 });
